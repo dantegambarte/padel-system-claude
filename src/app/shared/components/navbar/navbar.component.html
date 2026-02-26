@@ -1,0 +1,36 @@
+<mat-toolbar color="primary" class="navbar">
+  <button 
+    mat-icon-button 
+    (click)="onToggleSidebar()"
+    aria-label="Toggle sidebar">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="navbar-title">Club de Pádel</span>
+
+  <span class="spacer"></span>
+
+  <div class="user-menu" *ngIf="currentUser$ | async as user">
+    <button mat-button [matMenuTriggerFor]="userMenu" class="user-button">
+      <mat-icon>account_circle</mat-icon>
+      <span class="user-name">{{ user.nombre_completo }}</span>
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+
+    <mat-menu #userMenu="matMenu">
+      <div class="user-info">
+        <p class="user-info-name">{{ user.nombre_completo }}</p>
+        <p class="user-info-role">{{ user.rol === 'admin' ? 'Administrador' : 'Recepcionista' }}</p>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="goToProfile()">
+        <mat-icon>person</mat-icon>
+        <span>Mi perfil</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Cerrar sesión</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

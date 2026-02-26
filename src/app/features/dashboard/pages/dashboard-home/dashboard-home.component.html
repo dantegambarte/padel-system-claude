@@ -1,0 +1,53 @@
+<div class="dashboard-container">
+  <!-- Welcome Section -->
+  <div class="welcome-section">
+    <h1>{{ greeting }}, {{ currentUser?.nombre_completo }}!</h1>
+    <p class="subtitle">Resumen del día de hoy - {{ today | date: 'fullDate' }}</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <mat-card *ngFor="let stat of stats" class="stat-card" [routerLink]="stat.route">
+      <div class="stat-content">
+        <div class="stat-icon" [style.background-color]="stat.color">
+          <mat-icon>{{ stat.icon }}</mat-icon>
+        </div>
+        <div class="stat-details">
+          <p class="stat-title">{{ stat.title }}</p>
+          <h2 class="stat-value">{{ stat.value }}</h2>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions-section">
+    <h2>Acciones Rápidas</h2>
+    <div class="actions-grid">
+      <button
+        mat-raised-button
+        [color]="action.color"
+        *ngFor="let action of quickActions"
+        [routerLink]="action.route"
+        class="action-button">
+        <mat-icon>{{ action.icon }}</mat-icon>
+        <span>{{ action.label }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Recent Activity (Placeholder) -->
+  <div class="recent-activity-section">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Actividad Reciente</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="activity-placeholder">
+          <mat-icon>history</mat-icon>
+          <p>Los últimos movimientos aparecerán aquí</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
