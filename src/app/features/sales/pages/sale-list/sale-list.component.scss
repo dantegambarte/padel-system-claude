@@ -1,0 +1,28 @@
+.sale-list-container {
+  padding: 24px;
+
+  .header {
+    margin-bottom: 24px;
+    h1 { margin: 0; font-size: 28px; font-weight: 500; }
+  }
+
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+
+    mat-card {
+      text-align: center;
+      padding: 20px;
+      h3 { margin: 0 0 12px 0; font-size: 14px; color: #666; }
+      .amount { margin: 0; font-size: 28px; font-weight: 700; color: #4caf50; }
+    }
+  }
+
+  .filter-card {
+    margin-bottom: 24px;
+    padding: 16px;
+    mat-form-field { width: 250px; }
+  }
+}

@@ -1,0 +1,22 @@
+<div class="court-list-container">
+  <div class="header">
+    <h1>Gestión de Canchas</h1>
+    <button mat-raised-button color="primary" (click)="create()">
+      <mat-icon>add</mat-icon>
+      Nueva Cancha
+    </button>
+  </div>
+
+  <mat-card class="info-card">
+    <mat-icon>info</mat-icon>
+    <p>Esta sección solo es accesible para administradores. Aquí puedes crear, editar y gestionar las canchas del club.</p>
+  </mat-card>
+
+  <app-data-table
+    [data]="courts"
+    [columns]="columns"
+    [actions]="actions"
+    [loading]="loading"
+    [pageSize]="20">
+  </app-data-table>
+</div>

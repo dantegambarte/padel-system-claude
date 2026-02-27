@@ -1,0 +1,100 @@
+<div class="pos-container">
+  <div class="header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>Punto de Venta</h1>
+  </div>
+
+  <div class="pos-grid">
+    <!-- Productos -->
+    <div class="products-section">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Productos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Buscar producto</mat-label>
+            <input matInput [(ngModel)]="searchQuery" placeholder="Nombre del producto...">
+            <mat-icon matPrefix>search</mat-icon>
+          </mat-form-field>
+
+          <div class="product-grid">
+            <button
+              mat-raised-button
+              *ngFor="let product of filteredProducts"
+              class="product-card"
+              (click)="addToCart(product)"
+              [disabled]="product.requiere_stock && product.stock_actual === 0">
+              <div class="product-info">
+                <span class="product-name">{{ product.nombre }}</span>
+                <span class="product-price">{{ product.precio_venta | currencyArs }}</span>
+                <span class="product-stock" *ngIf="product.requiere_stock">
+                  Stock: {{ product.stock_actual }}
+                </span>
+              </div>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Carrito -->
+    <div class="cart-section">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Carrito</mat-card-title>
+          <button mat-icon-button (click)="clearCart()" [disabled]="cart.length === 0">
+            <mat-icon>delete_sweep</mat-icon>
+          </button>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="cart-empty" *ngIf="cart.length === 0">
+            <mat-icon>shopping_cart</mat-icon>
+            <p>El carrito está vacío</p>
+          </div>
+
+          <div class="cart-items" *ngIf="cart.length > 0">
+            <div class="cart-item" *ngFor="let item of cart; let i = index">
+              <div class="item-info">
+                <span class="item-name">{{ item.product.nombre }}</span>
+                <span class="item-price">{{ item.product.precio_venta | currencyArs }}</span>
+              </div>
+              <div class="item-controls">
+                <button mat-icon-button (click)="updateQuantity(item, item.cantidad - 1)">
+                  <mat-icon>remove</mat-icon>
+                </button>
+                <span class="item-quantity">{{ item.cantidad }}</span>
+                <button mat-icon-button (click)="updateQuantity(item, item.cantidad + 1)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+              <div class="item-subtotal">
+                {{ item.subtotal | currencyArs }}
+              </div>
+              <button mat-icon-button color="warn" (click)="removeFromCart(i)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="cart-total">
+            <span>Total:</span>
+            <span class="total-amount">{{ total | currencyArs }}</span>
+          </div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="full-width"
+            (click)="processSale()"
+            [disabled]="cart.length === 0">
+            <mat-icon>shopping_cart_checkout</mat-icon>
+            Procesar Venta
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

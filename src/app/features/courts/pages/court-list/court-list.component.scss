@@ -1,0 +1,54 @@
+.court-list-container {
+  padding: 24px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    button mat-icon {
+      margin-right: 8px;
+    }
+  }
+
+  .info-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    margin-bottom: 24px;
+    background-color: #e3f2fd;
+
+    mat-icon {
+      color: #1976d2;
+    }
+
+    p {
+      margin: 0;
+      color: #1565c0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .court-list-container {
+    padding: 16px;
+
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+<div class="product-list-container">
+  <div class="header">
+    <h1>Productos del Buffet</h1>
+    <div class="header-actions">
+      <button mat-raised-button color="accent" (click)="goToPOS()">
+        <mat-icon>point_of_sale</mat-icon>
+        Punto de Venta
+      </button>
+      <button mat-raised-button color="primary" (click)="create()">
+        <mat-icon>add</mat-icon>
+        Nuevo Producto
+      </button>
+    </div>
+  </div>
+
+  <mat-card class="filter-card">
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+        <mat-select [(ngModel)]="selectedCategory" (selectionChange)="onCategoryChange()">
+          <mat-option *ngFor="let cat of categories" [value]="cat.value">
+            {{ cat.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="stock-alert" *ngIf="lowStockCount > 0">
+        <mat-icon>warning</mat-icon>
+        <span>{{ lowStockCount }} producto(s) con stock bajo</span>
+      </div>
+    </div>
+  </mat-card>
+
+  <app-data-table
+    [data]="filteredProducts"
+    [columns]="columns"
+    [actions]="actions"
+    [loading]="loading"
+    [pageSize]="20">
+  </app-data-table>
+</div>
