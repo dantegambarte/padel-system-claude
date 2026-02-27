@@ -1,0 +1,30 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar -->
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+    <div class="sidebar-header">
+      <mat-icon class="logo-icon">sports_tennis</mat-icon>
+      <h2>Club de Pádel</h2>
+    </div>
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+
+  <!-- Contenido principal -->
+  <mat-sidenav-content>
+    <!-- Navbar -->
+    <app-navbar (toggleSidebar)="drawer.toggle()"></app-navbar>
+
+    <!-- Loading Spinner Global -->
+    <app-loading-spinner></app-loading-spinner>
+
+    <!-- Contenido dinámico (router-outlet) -->
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
