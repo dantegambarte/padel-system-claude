@@ -16,7 +16,7 @@
             matInput
             formControlName="username"
             placeholder="Ingresa tu usuario"
-            appAutofocus
+            [appAutofocus]="true"
             autocomplete="username">
           <mat-icon matPrefix>person</mat-icon>
           <mat-error *ngIf="usernameError">{{ usernameError }}</mat-error>

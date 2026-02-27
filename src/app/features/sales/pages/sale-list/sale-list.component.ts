@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SaleService } from '../../services/sale.service';
 import { Sale } from '../../models/sale.interface';
 import { TableColumn, TableAction } from '../../../../shared/components/data-table/data-table.component';
 import { NotificationService } from '../../../../core/services/notification.service';
+import { SaleService } from '../../services/sale.service';
 
 @Component({
   selector: 'app-sale-list',

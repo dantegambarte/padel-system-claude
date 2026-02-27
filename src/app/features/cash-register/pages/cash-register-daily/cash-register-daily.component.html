@@ -1,0 +1,93 @@
+<div class="cash-container" *ngIf="!loading">
+  <div class="header">
+    <h1>Caja del Día</h1>
+    <div class="header-actions">
+      <button mat-raised-button (click)="viewHistory()">
+        <mat-icon>history</mat-icon>
+        Historial
+      </button>
+      <button 
+        mat-raised-button 
+        color="warn" 
+        (click)="closeCash()" 
+        *ngIf="cashRegister && !cashRegister.cerrada">
+        <mat-icon>lock</mat-icon>
+        Cerrar Caja
+      </button>
+    </div>
+  </div>
+
+  <div class="summary-grid" *ngIf="cashRegister">
+    <mat-card>
+      <h3>Monto Inicial</h3>
+      <p class="amount">{{ cashRegister.monto_inicial | currencyArs }}</p>
+    </mat-card>
+    
+    <mat-card>
+      <h3>Ingresos Turnos</h3>
+      <p class="amount positive">{{ cashRegister.ingresos_turnos | currencyArs }}</p>
+    </mat-card>
+    
+    <mat-card>
+      <h3>Ingresos Buffet</h3>
+      <p class="amount positive">{{ cashRegister.ingresos_buffet | currencyArs }}</p>
+    </mat-card>
+    
+    <mat-card>
+      <h3>Egresos</h3>
+      <p class="amount negative">{{ cashRegister.egresos | currencyArs }}</p>
+    </mat-card>
+    
+    <mat-card class="total-card">
+      <h3>Monto Final</h3>
+      <p class="amount total">{{ cashRegister.monto_final | currencyArs }}</p>
+    </mat-card>
+  </div>
+
+  <div class="actions" *ngIf="cashRegister && !cashRegister.cerrada">
+    <button mat-raised-button color="primary" (click)="addIngreso()">
+      <mat-icon>add_circle</mat-icon>
+      Registrar Ingreso
+    </button>
+    <button mat-raised-button color="accent" (click)="addEgreso()">
+      <mat-icon>remove_circle</mat-icon>
+      Registrar Egreso
+    </button>
+  </div>
+
+  <mat-card class="movements-card" *ngIf="cashRegister">
+    <mat-card-header>
+      <mat-card-title>Movimientos del Día</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="movement-list" *ngIf="movements.length > 0">
+        <div class="movement" *ngFor="let mov of movements">
+          <div class="mov-info">
+            <span class="mov-concepto">{{ mov.concepto }}</span>
+            <span class="mov-time">{{ mov.created_at | date: 'HH:mm' }}</span>
+          </div>
+          <span 
+            class="mov-amount" 
+            [class.ingreso]="mov.tipo === 'ingreso'" 
+            [class.egreso]="mov.tipo === 'egreso'">
+            {{ mov.tipo === 'ingreso' ? '+' : '-' }}{{ mov.monto | currencyArs }}
+          </span>
+        </div>
+      </div>
+      <div class="no-movements" *ngIf="movements.length === 0">
+        <mat-icon>info</mat-icon>
+        <p>No hay movimientos registrados</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="closed-message" *ngIf="cashRegister && cashRegister.cerrada">
+    <mat-icon>lock</mat-icon>
+    <h2>Caja Cerrada</h2>
+    <p>Esta caja fue cerrada el {{ cashRegister.cerrada_at | date: 'dd/MM/yyyy HH:mm' }}</p>
+  </div>
+</div>
+
+<div class="loading-container" *ngIf="loading">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>

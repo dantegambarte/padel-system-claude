@@ -5,7 +5,7 @@
     <div class="form-row">
       <mat-form-field appearance="outline" class="half-width">
         <mat-label>Nombre</mat-label>
-        <input matInput formControlName="nombre" placeholder="Juan" appAutofocus>
+        <input matInput formControlName="nombre" placeholder="Juan" [appAutofocus]="true">
         <mat-icon matPrefix>person</mat-icon>
         <mat-error *ngIf="nombreError">{{ nombreError }}</mat-error>
       </mat-form-field>

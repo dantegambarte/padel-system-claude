@@ -1,0 +1,69 @@
+<div class="report-container">
+  <div class="header">
+    <h1>Reporte Financiero</h1>
+    <button mat-raised-button color="primary" (click)="exportPDF()" [disabled]="!reportData">
+      <mat-icon>picture_as_pdf</mat-icon>
+      Exportar PDF
+    </button>
+  </div>
+
+  <mat-card class="filter-card">
+    <div class="date-filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Desde</mat-label>
+        <input matInput [matDatepicker]="pickerDesde" [(ngModel)]="fechaDesde">
+        <mat-datepicker-toggle matSuffix [for]="pickerDesde"></mat-datepicker-toggle>
+        <mat-datepicker #pickerDesde></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Hasta</mat-label>
+        <input matInput [matDatepicker]="pickerHasta" [(ngModel)]="fechaHasta">
+        <mat-datepicker-toggle matSuffix [for]="pickerHasta"></mat-datepicker-toggle>
+        <mat-datepicker #pickerHasta></mat-datepicker>
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" (click)="loadReport()">
+        <mat-icon>search</mat-icon>
+        Generar
+      </button>
+    </div>
+  </mat-card>
+
+  <div class="report-content" *ngIf="reportData && !loading">
+    <div class="summary-grid">
+      <mat-card>
+        <h3>Total Ingresos</h3>
+        <p class="amount positive">{{ reportData.total_ingresos | currencyArs }}</p>
+      </mat-card>
+
+      <mat-card>
+        <h3>Total Egresos</h3>
+        <p class="amount negative">{{ reportData.total_egresos | currencyArs }}</p>
+      </mat-card>
+
+      <mat-card [class]="'balance-card ' + balanceColor">
+        <h3>Balance</h3>
+        <p class="amount" [class]="balanceColor">{{ reportData.balance | currencyArs }}</p>
+      </mat-card>
+    </div>
+
+    <mat-card class="chart-card">
+      <h2>Gráficos (Placeholder)</h2>
+      <div class="chart-placeholder">
+        <mat-icon>bar_chart</mat-icon>
+        <p>Aquí se pueden integrar gráficos con Chart.js o ng2-charts</p>
+        <p class="hint">Instala: npm install chart.js ng2-charts</p>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="loading-container" *ngIf="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
+
+  <div class="no-data" *ngIf="!reportData && !loading">
+    <mat-icon>info</mat-icon>
+    <p>Selecciona un rango de fechas y presiona "Generar" para ver el reporte</p>
+  </div>
+</div>

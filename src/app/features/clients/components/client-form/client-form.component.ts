@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationService } from '../../../../core/services/notification.service';
 import { ClientService } from '../../services/client.service';
 import { Client, CreateClientDto, UpdateClientDto } from '../../models/client.interface';
-import { NotificationService } from '../../../../core/services/notification.service';
 
 @Component({
   selector: 'app-client-form',
@@ -29,7 +29,7 @@ export class ClientFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    
+
     if (this.isEditMode && this.data.client) {
       this.clientForm.patchValue(this.data.client);
     }

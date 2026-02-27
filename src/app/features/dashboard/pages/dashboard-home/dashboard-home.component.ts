@@ -17,7 +17,8 @@ interface StatCard {
 })
 export class DashboardHomeComponent implements OnInit {
   currentUser: User | null = null;
-  
+  today: Date = new Date();
+
   stats: StatCard[] = [
     {
       title: 'Turnos Hoy',
