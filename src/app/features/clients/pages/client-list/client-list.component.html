@@ -1,0 +1,40 @@
+<div class="client-list-container">
+  <div class="header">
+    <h1>Clientes</h1>
+    <button mat-raised-button color="primary" (click)="create()">
+      <mat-icon>person_add</mat-icon>
+      Nuevo Cliente
+    </button>
+  </div>
+
+  <mat-card class="search-card">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Buscar por nombre o teléfono</mat-label>
+      <input
+        matInput
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="onSearch()"
+        placeholder="Ingresa al menos 3 caracteres...">
+      <mat-icon matPrefix>search</mat-icon>
+      <button
+        mat-icon-button
+        matSuffix
+        *ngIf="searchQuery"
+        (click)="clearSearch()"
+        aria-label="Limpiar búsqueda">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="onSearch()" [disabled]="searchQuery.length < 3">
+      Buscar
+    </button>
+  </mat-card>
+
+  <app-data-table
+    [data]="clients"
+    [columns]="columns"
+    [actions]="actions"
+    [loading]="loading"
+    [pageSize]="20">
+  </app-data-table>
+</div>

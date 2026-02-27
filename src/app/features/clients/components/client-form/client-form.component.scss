@@ -1,0 +1,44 @@
+.client-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 500px;
+  padding: 16px 0;
+
+  .form-row {
+    display: flex;
+    gap: 16px;
+
+    .half-width {
+      flex: 1;
+    }
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  mat-icon {
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  margin: 0;
+
+  button {
+    margin-left: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .client-form {
+    min-width: auto;
+
+    .form-row {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+}

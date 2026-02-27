@@ -1,0 +1,111 @@
+<div class="client-detail-container" *ngIf="!loading && client">
+  <div class="header">
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1>{{ client.nombre }} {{ client.apellido }}</h1>
+    <button mat-raised-button color="primary" (click)="edit()">
+      <mat-icon>edit</mat-icon>
+      Editar
+    </button>
+  </div>
+
+  <div class="content-grid">
+    <!-- Información Personal -->
+    <mat-card class="info-card">
+      <mat-card-header>
+        <mat-card-title>Información Personal</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="info-row">
+          <mat-icon>person</mat-icon>
+          <div>
+            <p class="label">Nombre Completo</p>
+            <p class="value">{{ client.nombre }} {{ client.apellido }}</p>
+          </div>
+        </div>
+
+        <div class="info-row">
+          <mat-icon>phone</mat-icon>
+          <div>
+            <p class="label">Teléfono</p>
+            <p class="value">{{ client.telefono | phoneFormat }}</p>
+          </div>
+        </div>
+
+        <div class="info-row" *ngIf="client.email">
+          <mat-icon>email</mat-icon>
+          <div>
+            <p class="label">Email</p>
+            <p class="value">{{ client.email }}</p>
+          </div>
+        </div>
+
+        <div class="info-row" *ngIf="client.dni">
+          <mat-icon>badge</mat-icon>
+          <div>
+            <p class="label">DNI</p>
+            <p class="value">{{ client.dni }}</p>
+          </div>
+        </div>
+
+        <div class="info-row" *ngIf="client.notas">
+          <mat-icon>notes</mat-icon>
+          <div>
+            <p class="label">Notas</p>
+            <p class="value">{{ client.notas }}</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Estadísticas -->
+    <mat-card class="stats-card">
+      <mat-card-header>
+        <mat-card-title>Estadísticas</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="stat-item">
+          <mat-icon>event</mat-icon>
+          <div>
+            <p class="stat-value">{{ client.total_bookings || 0 }}</p>
+            <p class="stat-label">Turnos Totales</p>
+          </div>
+        </div>
+
+        <div class="stat-item" *ngIf="client.last_booking_date">
+          <mat-icon>schedule</mat-icon>
+          <div>
+            <p class="stat-value">{{ client.last_booking_date | dateFormat }}</p>
+            <p class="stat-label">Último Turno</p>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <mat-icon>{{ client.activo ? 'check_circle' : 'cancel' }}</mat-icon>
+          <div>
+            <p class="stat-value">{{ client.activo ? 'Activo' : 'Inactivo' }}</p>
+            <p class="stat-label">Estado</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Historial de Turnos (Placeholder) -->
+    <mat-card class="history-card">
+      <mat-card-header>
+        <mat-card-title>Historial de Turnos</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="placeholder">
+          <mat-icon>history</mat-icon>
+          <p>El historial de turnos se mostrará aquí</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="loading-container" *ngIf="loading">
+  <mat-spinner diameter="50"></mat-spinner>
+</div>
